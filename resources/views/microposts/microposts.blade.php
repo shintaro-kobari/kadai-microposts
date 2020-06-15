@@ -1,6 +1,8 @@
+
 @if (count($microposts) > 0)
     <ul class="list-unstyled">
         @foreach ($microposts as $micropost)
+
             <li class="media mb-3">
                 {{-- 投稿の所有者のメールアドレスをもとにGravatarを取得して表示 --}}
                 <img class="mr-2 rounded" src="{{ Gravatar::get($micropost->user->email, ['size' => 50]) }}" alt="">
@@ -14,7 +16,18 @@
                         {{-- 投稿内容 --}}
                         <p class="mb-0">{!! nl2br(e($micropost->content)) !!}</p>
                     </div>
-                    <div>
+                    
+                    <div style="display:flex">
+                        @if(Auth::user()->is_favorite($micropost->id))
+                            {!! Form::open(['route' => ['favorites.unfavorite', $micropost->id], 'method' => 'delete']) !!}
+                                {!! Form::submit('unfavorite', ['class' => 'btn btn-outline-success btn-sm']) !!}
+                            {!! Form::close() !!}
+                        @else
+                            {!! Form::open(['route' => ['favorites.favorite', $micropost->id], 'method' => 'store']) !!}
+                                {!! Form::submit('favorite', ['class' => 'btn btn-success btn-sm']) !!}
+                            {!! Form::close() !!}
+                        @endif
+                        
                         @if (Auth::id() == $micropost->user_id)
                             {{-- 投稿削除ボタンのフォーム --}}
                             {!! Form::open(['route' => ['microposts.destroy', $micropost->id], 'method' => 'delete']) !!}

@@ -36,12 +36,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
     /**
      * このユーザに関係するモデルの件数をロードする。
      */
     public function loadRelationshipCounts()
     {
-        $this->loadCount(['microposts', 'followings', 'followers']);
+        $this->loadCount(['microposts', 'followings', 'followers','favorites']);
     }
 
         /**
@@ -137,5 +138,62 @@ class User extends Authenticatable
         // それらのユーザが所有する投稿に絞り込む
         return Micropost::whereIn('user_id', $userIds);
     }
-
+    
+    /**
+     * このユーザが、お気に入りに入れている投稿のデータを返す
+     * 
+     * @access public
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function favorites(){
+        return $this->belongsToMany(Micropost::class, 'favorites', 'user_id', 'micropost_id')->withTimestamps();
+    }
+    
+    /**
+     * 投稿をお気に入りする
+     * 
+     * @access public
+     * @param int $micropostId
+     * @return bool
+     */
+    public function favorite($micropostId){
+        $exsit = $this->is_favorite($micropostId);
+        
+        if($exsit){
+            return false;
+        }else{
+            $this->favorites()->attach($micropostId);
+            return true;
+        }
+    }
+    
+    /**
+     * 投稿をお気に入りから削除する
+     * 
+     * @access public
+     * @param int $micropostId
+     * @return bool
+     */
+    public function unfavorite($micropostId){
+        $exsit = $this->is_favorite($micropostId);
+        
+        if($exsit){
+            $this->favorites()->detach($micropostId);
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    /**
+     * 投稿をお気に入りしている状態かどうか判別
+     *
+     * @access public
+     * @param int $userId
+     * @return bool
+     */
+    public function is_favorite($micropostId){
+        return $this->favorites()->where("micropost_id",$micropostId)->exists();
+    }
+    
 }

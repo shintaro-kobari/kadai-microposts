@@ -5,3 +5,9 @@
         @endforeach
     </ul>
 @endif
+
+@if (session()->has('message'))
+    <ul class="alert alert-info" role="alert">
+        {{ session('message') }}
+    </ul>
+@endif
