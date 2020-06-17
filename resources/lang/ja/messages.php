@@ -27,5 +27,6 @@ return [
     'followed'=>'フォローしました',
     'unfollowed'=>'フォロー解除しました',
     'favorited'=>'お気に入りに追加しました',
-    'unfavorited'=>'お気に入り解除しました'
+    'unfavorited'=>'お気に入り解除しました',
+    'deleted'=>'投稿を削除しました'
 ];

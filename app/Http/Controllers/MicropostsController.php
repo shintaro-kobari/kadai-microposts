@@ -54,7 +54,9 @@ class MicropostsController extends Controller
         }
 
         // 前のURLへリダイレクトさせる
-        return back();
+        return back()->with([
+            'message' => __('messages.deleted'),
+        ]);
     }
 
     // //編集

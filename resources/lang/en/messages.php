@@ -27,5 +27,6 @@ return [
     'followed'=>'Followed the user.',
     'unfollowed'=>'Unfollowed the user.',
     'favorited'=>'Added to Favorites.',
-    'unfavorited'=>'Removed from Favorites.'
+    'unfavorited'=>'Removed from Favorites.',
+    'deleted'=>'Deleted the post.'
 ];
