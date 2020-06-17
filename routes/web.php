@@ -40,3 +40,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy']]);
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
 });
+
+    /**
+     * 言語切替
+     */
+    Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']); 

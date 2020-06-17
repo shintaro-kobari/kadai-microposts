@@ -16,7 +16,7 @@ class FavoritesController extends Controller
         \Auth::user()->favorite($micropost_id);
         // 前のURLへリダイレクトさせる
         return back()->with([
-            'message' => 'お気に入りに追加しました。',
+            'message' => __('messages.favorited'),
         ]);
     }
 
@@ -31,6 +31,8 @@ class FavoritesController extends Controller
         // 認証済みユーザ（閲覧者）が、 idのmicropostをunfavoriteする
         \Auth::user()->unfavorite($micropost_id);
         // 前のURLへリダイレクトさせる
-        return back();
+       return back()->with([
+            'message' => __('messages.unfavorited'),
+        ]);
     }
 }

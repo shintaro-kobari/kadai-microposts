@@ -138,7 +138,7 @@ class User extends Authenticatable
         // それらのユーザが所有する投稿に絞り込む
         return Micropost::whereIn('user_id', $userIds);
     }
-    
+
     /**
      * このユーザが、お気に入りに入れている投稿のデータを返す
      * 
@@ -195,5 +195,7 @@ class User extends Authenticatable
     public function is_favorite($micropostId){
         return $this->favorites()->where("micropost_id",$micropostId)->exists();
     }
+    
+    
     
 }

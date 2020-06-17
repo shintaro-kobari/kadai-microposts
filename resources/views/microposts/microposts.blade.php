@@ -20,20 +20,22 @@
                     <div style="display:flex">
                         @if(Auth::user()->is_favorite($micropost->id))
                             {!! Form::open(['route' => ['favorites.unfavorite', $micropost->id], 'method' => 'delete']) !!}
-                                {!! Form::submit('unfavorite', ['class' => 'btn btn-outline-success btn-sm']) !!}
+                                {!! Form::submit(__('messages.unfavorite'), ['class' => 'btn btn-outline-success btn-sm']) !!}
                             {!! Form::close() !!}
                         @else
                             {!! Form::open(['route' => ['favorites.favorite', $micropost->id], 'method' => 'store']) !!}
-                                {!! Form::submit('favorite', ['class' => 'btn btn-success btn-sm']) !!}
+                                {!! Form::submit(__('messages.favorite'), ['class' => 'btn btn-success btn-sm']) !!}
                             {!! Form::close() !!}
                         @endif
                         
                         @if (Auth::id() == $micropost->user_id)
                             {{-- 投稿削除ボタンのフォーム --}}
                             {!! Form::open(['route' => ['microposts.destroy', $micropost->id], 'method' => 'delete']) !!}
-                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                                {!! Form::submit(__('messages.delete'), ['class' => 'btn btn-danger btn-sm']) !!}
                             {!! Form::close() !!}
                         @endif
+                        
+                        
                     </div>
                 </div>
             </li>
