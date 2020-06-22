@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card bg-light rounded">
     <div class="card-header">
         <h3 class="card-title">{{ $user->name }}</h3>
     </div>

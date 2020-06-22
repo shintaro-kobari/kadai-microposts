@@ -102,4 +102,14 @@ class UsersController extends Controller
             'microposts' => $favorites,
         ]);
     }
+    
+    public function account()
+
+     {
+    
+        $auth = Auth::user();
+        
+        return view('users.account',[ 'auth' => $auth ]);
+    
+     }
 }
